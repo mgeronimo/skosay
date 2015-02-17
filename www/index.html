@@ -45,7 +45,6 @@
     </body>
 </html>-->
 
-<!DOCTYPE html>
 <html>
   <head>
     <meta charset="utf-8">
@@ -109,16 +108,76 @@
                             </div>
 
                             <center style="margin-top:0px;">
-                                <a href="register"><button id="loginGuestBtn" class="button button-light button-clear" style="color:white;">
+                                <a href="register.html"><button id="loginGuestBtn" class="button button-light button-clear" style="color:white;">
                                     First time here? Let's get you signed up <span class="ion-chevron-right" style="font-size: 14px; color: white;"></span>
                                 </button></a>
                              </center>
                         </div>
                     </div>
+
+
                 </ion-content>
             </ion-view>
         </ion-nav-view>
     </ion-pane>
+
+    <script>
+        window.onload = function()
+        {
+            $('#password').val('');
+    //        document.getElementById('password').value ='';
+        };
+
+        function submitForm()
+        {
+            $('#errorMsg').empty();
+            document.getElementById('submitButton').style.display = 'none';
+            document.getElementById('falseButton').style.display = '';
+
+            var url = $('#ajaxForm').attr('action');
+            $.ajax({
+                type : 'POST',
+                url : url,
+                data : $('#ajaxForm').serialize(),
+                success : function(userData)
+                {
+                    $('#testHidden').replaceWith(userData['hidden']);
+                    checkLogin();
+                    $('#errorMsg').empty().append(userData['msg']).show();
+
+                    setTimeout(function(){ $('#errorMsg').empty(); },4000);
+                }
+            })
+        }
+
+        function checkLogin()
+        {
+            if(document.getElementById('testHidden').value == 'true')
+            {
+                document.getElementById('redirectForm').submit();
+            }
+            else
+            {
+                document.getElementById('submitButton').style.display = '';
+                document.getElementById('falseButton').style.display = 'none';
+            }
+        }
+
+        $(document).keypress(function(e) {
+            if(e.which == 13) {
+                if(document.getElementById('email').value.length != 0 || document.getElementById('password').value.length != 0)
+                    submitForm();
+            }
+        });
+
+        function validateInput()
+        {
+            if(document.getElementById('email').value.length != 0 && document.getElementById('password').value.length != 0 )
+                document.getElementById('submitButton').disabled = false;
+            else
+                document.getElementById('submitButton').disabled = true;
+        }
+    </script>
   </body>
 </html>
 
