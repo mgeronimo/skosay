@@ -1,183 +1,21 @@
 <!DOCTYPE html>
-<!--
-    Copyright (c) 2012-2014 Adobe Systems Incorporated. All rights reserved.
-
-    Licensed to the Apache Software Foundation (ASF) under one
-    or more contributor license agreements.  See the NOTICE file
-    distributed with this work for additional information
-    regarding copyright ownership.  The ASF licenses this file
-    to you under the Apache License, Version 2.0 (the
-    "License"); you may not use this file except in compliance
-    with the License.  You may obtain a copy of the License at
-
-    http://www.apache.org/licenses/LICENSE-2.0
-
-    Unless required by applicable law or agreed to in writing,
-    software distributed under the License is distributed on an
-    "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
-     KIND, either express or implied.  See the License for the
-    specific language governing permissions and limitations
-    under the License.
---><!-- WARNING: for iOS 7, remove the width=device-width and height=device-height attributes. See https://issues.apache.org/jira/browse/CB-4323 -->
-<!--<html>
-    <head>
-        <meta charset="utf-8" />
-        <meta name="format-detection" content="telephone=no" />
-        <meta name="msapplication-tap-highlight" content="no" />
-        
-        <meta name="viewport" content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width, height=device-height, target-densitydpi=device-dpi" />
-        <link rel="stylesheet" type="text/css" href="css/index.css" />
-        <title>Hello World</title>
-    </head>
-    <body>
-        <div class="app">
-            <h1>PhoneGap</h1>
-            <div id="deviceready" class="blink">
-                <p class="event listening">Connecting to Device</p>
-                <p class="event received">Device is Ready</p>
-            </div>
-        </div>
-        <script type="text/javascript" src="cordova.js"></script>
-        <script type="text/javascript" src="js/index.js"></script>
-        <script type="text/javascript">
-            app.initialize();
-        </script>
-    </body>
-</html>-->
-
 <html>
-  <head>
+<head>
     <meta charset="utf-8">
-    <meta name="viewport" content="initial-scale=1, maximum-scale=1, user-scalable=no, width=device-width">
-    <title></title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
+</head>
+<body>
 
-    <link href="css/ionic.css" rel="stylesheet">
-    <link href="css/style.css" rel="stylesheet">
+<p><button class="help-btn">Help</button></p>
+<div class='header'><h1>Directory</h1></div>
+<div class='search-view'>
+    <input class='search-key' type="search" placeholder="Enter name"/>
+    <ul class='list employee-list'></ul>
+</div>
 
-    <!-- IF using Sass (run gulp sass first), then uncomment below and remove the CSS includes above
-    <link href="css/ionic.app.css" rel="stylesheet">
-    -->
+<script src="lib/jquery.js"></script>
+<script src="js/services/websql/EmployeeService.js"></script>
+<script src="js/app.js"></script>
 
-    <!-- ionic/angularjs js -->
-    <script src="js/ionic/ionic.bundle.js"></script>
-
-    <!-- cordova script (this will be a 404 during development) 
-    <script src="cordova.js"></script>-->
-
-    <!-- your app's js -->
-    <script src="js/ionic/app.js"></script>
-  </head>
-  <body ng-app="starter" id="signin-body">
-
-    <ion-pane>
-        <ion-nav-view>
-            <ion-view view-title="My Page" hide-nav-bar="true">
-                <ion-content>
-                    <div class="content">
-                        <div class="container">
-                            <form method="POST" action="login2" id="ajaxForm">
-                                <p align="center" style="margin-top:2em;">
-                                    <img src="img/skopic.png" style="width:230px;">
-                                </p>
-                                <div id="errorMsg" style="background-color:#00b9f2"></div>
-                                <div class="card" style="margin-top: 12px';">
-                                    <label class="item item-input">
-                                        <input onkeyup="validateInput()" id="email" placeholder="Your email" autocapitalize="off" name="email" type="email">
-                                    </label>
-                                </div>
-                                <div class="card " style="margin-top: 1em;">
-                                    <label class="item item-input">
-                                        <input onkeyup="validateInput()" placeholder="Your password" id="password" autocapitalize="off" name="password" type="password" value="">
-                                    </label>
-                                </div>
-                            </form>
-
-                            <div class="list list-inset" style="margin-top: -1em; background-color:#00b9f2">
-                                <input disabled="true" id="submitButton" class="button button-block button-energized" type="submit" onclick="submitForm()" value="Sign in">
-                                <button id="falseButton" class="button button-block button-energized" disabled="" style="display: none;">Signing in. Please wait <span class="ion-refreshing"></span></button>
-                                <center><a class="text-link" href="/confirmForgot">Forgot Password?</a></center>
-                            </div>
-
-                            <div class="list list-inset" style="margin-top: 30px; margin-bottom: 0px; background-color:#00b9f2">
-                                <form action="loginFb" method="GET" id="loginFb">
-                                    <button id="loginFbBtn" class="button button-block button-fb">
-                                            <img class="fbIconForm" src="img/fb.png">Sign in with Facebook
-                                    </button>
-                                </form>
-                                <br>
-                            </div>
-
-                            <center style="margin-top:0px;">
-                                <a href="register.html"><button id="loginGuestBtn" class="button button-light button-clear" style="color:white;">
-                                    First time here? Let's get you signed up <span class="ion-chevron-right" style="font-size: 14px; color: white;"></span>
-                                </button></a>
-                             </center>
-                        </div>
-                    </div>
-
-
-                </ion-content>
-            </ion-view>
-        </ion-nav-view>
-    </ion-pane>
-
-    <script>
-        window.onload = function()
-        {
-            $('#password').val('');
-    //        document.getElementById('password').value ='';
-        };
-
-        function submitForm()
-        {
-            $('#errorMsg').empty();
-            document.getElementById('submitButton').style.display = 'none';
-            document.getElementById('falseButton').style.display = '';
-
-            var url = $('#ajaxForm').attr('action');
-            $.ajax({
-                type : 'POST',
-                url : url,
-                data : $('#ajaxForm').serialize(),
-                success : function(userData)
-                {
-                    $('#testHidden').replaceWith(userData['hidden']);
-                    checkLogin();
-                    $('#errorMsg').empty().append(userData['msg']).show();
-
-                    setTimeout(function(){ $('#errorMsg').empty(); },4000);
-                }
-            })
-        }
-
-        function checkLogin()
-        {
-            if(document.getElementById('testHidden').value == 'true')
-            {
-                document.getElementById('redirectForm').submit();
-            }
-            else
-            {
-                document.getElementById('submitButton').style.display = '';
-                document.getElementById('falseButton').style.display = 'none';
-            }
-        }
-
-        $(document).keypress(function(e) {
-            if(e.which == 13) {
-                if(document.getElementById('email').value.length != 0 || document.getElementById('password').value.length != 0)
-                    submitForm();
-            }
-        });
-
-        function validateInput()
-        {
-            if(document.getElementById('email').value.length != 0 && document.getElementById('password').value.length != 0 )
-                document.getElementById('submitButton').disabled = false;
-            else
-                document.getElementById('submitButton').disabled = true;
-        }
-    </script>
-  </body>
+</body>
 </html>
-
