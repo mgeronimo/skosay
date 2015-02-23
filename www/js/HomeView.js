@@ -7,7 +7,7 @@ var HomeView = function (service) {
 		this.$el = $('<div/>');
 		this.$el.on('keyup', '.search-key', findByName);
 		employeeListView = new EmployeeListView();
-
+		//this.render();
 	};
 
 	this.initialize();
@@ -18,7 +18,8 @@ var HomeView = function (service) {
 		return this;
 	};
 
-	this.findByName = function() {
+	function findByName() {
+		//alert("aa");
 	    service.findByName($('.search-key').val()).done(function(employees) {
 	        employeeListView.setEmployees(employees);
 	    });
