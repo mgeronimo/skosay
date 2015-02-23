@@ -19,7 +19,7 @@
               navigator.notification.alert(
                   message,    // message
                   null,       // callback
-                  "Workshop", // title
+                  "Skosay", // title
                   'OK'        // buttonName
               );
           };
