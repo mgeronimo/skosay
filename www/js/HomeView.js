@@ -18,11 +18,10 @@ var HomeView = function (service) {
 		return this;
 	};
 
-	function findByName() {
-		alert("aa");
-		service.findByName($('.search-key').val()).done(function(employees) {
-			employeeListView.setEmployees(employees);
-		});
+	this.findByName = function() {
+	    service.findByName($('.search-key').val()).done(function(employees) {
+	        employeeListView.setEmployees(employees);
+	    });
 	};
 
 }
